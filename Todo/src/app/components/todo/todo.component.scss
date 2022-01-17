@@ -8,16 +8,19 @@
 .example-container {
     display: flex;
     flex-direction: column;
-    max-height: 500px;
-    min-width: 300px;
     width: 50%;
+    height: 80%;
   }
   
   .mat-table {
+    flex: 1;
     overflow: auto;
-    max-height: 500px;
+    margin-top: 5%;
+  
   }
-
+  .mat-table::-webkit-scrollbar {
+    display: none;
+  }
   .mat-cell, .mat-header-cell {
     flex: 1;
     min-height: 48px;
@@ -29,3 +32,8 @@
 .line{
     text-decoration: line-through;
 }
+
+#addTodo{
+    margin-top: 8%;
+}
+

@@ -1,36 +1,41 @@
 
 <div id="todo-container">
+   
     <div class="example-container mat-elevation-z8">
         <mat-table #table [dataSource]="todoItems">
       
           <!-- Title Column -->
           <ng-container matColumnDef="title">
             <mat-header-cell *matHeaderCellDef> A faire </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.title + ' ' + element.id}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="status">
             <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-            <mat-cell *matCellDef="let element"><mat-checkbox (change)="showOptions($event, element)"></mat-checkbox></mat-cell>
+            <mat-cell *matCellDef="let element"><mat-checkbox (change)="changeStatus($event, element)"></mat-checkbox></mat-cell>
           </ng-container>
-          
+
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+        
         <mat-table #table [dataSource]="todoItemsDone" >
             <!-- Title Column -->
             <ng-container matColumnDef="title">
               <mat-header-cell *matHeaderCellDef> Fait </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="line"> {{element.title + ' ' + element.id}} </mat-cell>
+              <mat-cell *matCellDef="let element" class="line"> {{element.title}} </mat-cell>
             </ng-container>
   
             <ng-container matColumnDef="status">
               <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="line"><mat-checkbox [checked]="true" (change)="showOptions($event, element)"></mat-checkbox></mat-cell>
+              <mat-cell *matCellDef="let element" class="line"><mat-checkbox [checked]="true" (change)="changeStatus($event, element)"></mat-checkbox></mat-cell>
             </ng-container>
             
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          </mat-table>
+        </mat-table>
+        <button mat-flat-button id='addTodo' color="accent" (click)="openAddTodo()" aria-label="Add new todo button">
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
 </div>

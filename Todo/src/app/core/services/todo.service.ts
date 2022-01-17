@@ -25,13 +25,21 @@ export class TodoService {
   }
   
   private handleError(error: any) {
-    console.log(error);
     return throwError(error);
   }
 
   patch(todoItem: TodoItem): Observable<TodoItem[]> {
     return this.http
       .patch<TodoItem[]>(this.apiUrl + "TodoItem/" + todoItem.id, todoItem)
+      .pipe(
+        tap(data => console.log(data)),
+        catchError(this.handleError)
+      );
+  }
+
+  create(todoItem: TodoItem): Observable<TodoItem[]> {
+    return this.http
+      .post<TodoItem[]>(this.apiUrl + "TodoItem", todoItem)
       .pipe(
         tap(data => console.log(data)),
         catchError(this.handleError)

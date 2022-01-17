@@ -1,0 +1,18 @@
+label{
+    margin: 0 2% 0 0;
+    flex: 1
+}
+
+.form-group{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 5% 0;
+}
+
+input, textarea{
+    flex: 6
+}
+
+textarea{
+    height: 200px;
+}

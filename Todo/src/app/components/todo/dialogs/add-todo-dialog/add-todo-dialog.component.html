@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Titre*</label>
+      <input matInput 
+        type="text"
+        formControlName="title"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
+      />
+    </div>
+    <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+        <div *ngIf="f['title'].errors['required']">Le titre est obligatoire</div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea
+        type="text"
+        formControlName="desc"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['desc'].errors }"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <button mat-flat-button color="warn" (click)="onReset()" aria-label="Close modal">
+        Abandoner <mat-icon>close</mat-icon>
+     </button>
+      <button mat-flat-button color="primary" (click)="onSubmit()" aria-label="Create a todo">
+       Sauvegarder <mat-icon>save</mat-icon>
+    </button>
+    </div>
+  </form>

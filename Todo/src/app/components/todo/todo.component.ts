@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { TodoItem } from 'src/app/shared/models/todo-item.model';
 import { TodoService } from '../../core/services/todo.service'
+import { AddTodoDialogComponent } from './dialogs/add-todo-dialog/add-todo-dialog.component';
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -15,22 +18,51 @@ export class TodoComponent implements OnInit {
   response: any;
 
   constructor(
-    private readonly todoService: TodoService) { }
+    private readonly todoService: TodoService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.todoService.getAll().subscribe( value => {
-      this.todoItems = value;
-      this.todoItemsDone = [];
+    this.todoService.getAll().subscribe(value => {
+      let todoItemsArray: TodoItem[]=[]
+      let todoItemsDoneArray: TodoItem[]=[]
+
+      this.todoItemsDone = value;
       value.forEach((element: { id: any; title: any; desc: any; status: any;}, index) => {
-          if(element.status == true){
-            let todoDone =this.todoItems.splice(index, 1);
-            this.todoItemsDone.push(todoDone[0])
+          if(element.status === true){
+            todoItemsArray.push(element)
+          } else{
+            todoItemsDoneArray.push(element)
           }
         })
+        this.todoItemsDone = todoItemsArray;
+        this.todoItems = todoItemsDoneArray.reverse();
       })
   }
 
-  showOptions(event:MatCheckboxChange, element:TodoItem): void {
+  openAddTodo(): void {
+    let dialogRef = this.dialog.open(AddTodoDialogComponent, {
+      width: '50%',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.todoService.getAll().subscribe(value => {
+        let todoItemsArray: TodoItem[]=[]
+        let todoItemsDoneArray: TodoItem[]=[]
+  
+        this.todoItemsDone = value;
+        value.forEach((element: { id: any; title: any; desc: any; status: any;}, index) => {
+            if(element.status === true){
+              todoItemsDoneArray.unshift(element)
+            } else{
+              todoItemsArray.push(element)
+            }
+          })
+          this.todoItemsDone = todoItemsDoneArray;
+          this.todoItems = todoItemsArray.reverse();
+        })
+    });
+  }
+
+  changeStatus(event:MatCheckboxChange, element:TodoItem): void {
     if(event.checked == true){
       const searchIndex = this.todoItems.findIndex((todo) => todo.id == element.id);
       let todoDone =this.todoItems.splice(searchIndex, 1);
