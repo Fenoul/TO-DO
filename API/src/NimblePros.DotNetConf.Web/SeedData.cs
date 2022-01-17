@@ -7,7 +7,7 @@ namespace Todo.Web;
 public static class SeedData
 {
   public static readonly TodoItem TestProject1 = new TodoItem(
-    "Test", "OUI interventionnelle, mieux vaut décloisonner les process framework.", true
+    "Ceci est un test", "Interventionnelle, mieux vaut décloisonner les process framework.", true
     );
 
   public static void Initialize(IServiceProvider serviceProvider)
