@@ -24,6 +24,7 @@ public class TodoItemController : BaseApiController
         (
             id: todoItem.Id,
             title: todoItem.Title,
+            desc: todoItem.Desc,
             status: todoItem.Status
         ))
         .ToList();
@@ -35,14 +36,14 @@ public class TodoItemController : BaseApiController
   [HttpGet("{todoId:int}")]
   public async Task<IActionResult> GetById(int todoId)
   {
-    var todoSpec = new TodoById(todoId);
-    var todo = await _repository.GetBySpecAsync(todoSpec);
+    TodoById todoSpec = new TodoById(todoId);
+    TodoItem todo = await _repository.GetBySpecAsync(todoSpec);
     if (todo == null)
     {
       return NotFound();
     }
 
-    var response = new TodoDTO
+    TodoDTO response = new TodoDTO
     (
         id: todo.Id,
         title: todo.Title,
@@ -51,6 +52,30 @@ public class TodoItemController : BaseApiController
     );
 
     return Ok(response);
+  }
+
+  // POST: api/Todo
+  [HttpPost]
+  public async Task<IActionResult> Post([FromBody] TodoItem request)
+  {
+    if (request != null)
+    {
+      TodoItem newTodo = new TodoItem(request.Title, request.Desc, request.Status);
+
+      TodoItem createdTodo = await _repository.AddAsync(newTodo);
+
+      TodoDTO result = new TodoDTO
+      (
+          id: createdTodo.Id,
+          title: createdTodo.Title,
+          desc: createdTodo.Desc,
+          status: createdTodo.Status
+      );
+      return Ok(result);
+    } else
+    {
+      return BadRequest();
+    }
   }
 
   // PATCH: api/Todo/{todoId}
