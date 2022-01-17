@@ -2,6 +2,7 @@
 using Todo.SharedKernel.Interfaces;
 using Todo.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
+using NimblePros.DotNetConf.Core.ProjectAggregate.Specifications;
 
 namespace Todo.Web.Api;
 
@@ -14,7 +15,7 @@ public class TodoItemController : BaseApiController
     _repository = repository;
   }
 
-  // GET: Todo
+  // GET: api/Todo
   [HttpGet]
   public async Task<IActionResult> List()
   {
@@ -29,6 +30,28 @@ public class TodoItemController : BaseApiController
         .ToList();
 
     return Ok(todoDTOs);
+  }
+
+  // PATCH: api/Todo/{todoId}
+  [HttpPatch("{todoId}")]
+  public async Task<IActionResult> Complete(int todoId, [FromBody] TodoItem TodoDTO)
+  {
+    if (TodoDTO != null)
+    {
+      var todoSpec = new TodoById(todoId);
+      TodoItem todo = await _repository.GetBySpecAsync(todoSpec);
+      if (todo == null) return NotFound("No such todo");
+      todo.Title = TodoDTO.Title;
+      todo.Desc = TodoDTO.Desc;
+      todo.Status = TodoDTO.Status;
+
+      await _repository.UpdateAsync(todo);
+
+      return Ok();
+    }
+    else {
+      return BadRequest();
+    }
   }
 
 }
