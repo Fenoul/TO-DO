@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TodoItem } from 'src/app/shared/models/todo-item.model';
 import { TodoService } from '../../core/services/todo.service'
 import { AddTodoDialogComponent } from './dialogs/add-todo-dialog/add-todo-dialog.component';
+import { ViewTodoDialogComponent } from './dialogs/view-todo-dialog/view-todo-dialog.component';
 
 @Component({
   selector: 'app-todo',
@@ -12,7 +13,7 @@ import { AddTodoDialogComponent } from './dialogs/add-todo-dialog/add-todo-dialo
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent implements OnInit {
-  displayedColumns = ['title', 'status'];
+  displayedColumns = ['title', 'status', 'info'];
   todoItems: TodoItem[]=[];
   todoItemsDone: TodoItem[]=[];
   response: any;
@@ -59,6 +60,13 @@ export class TodoComponent implements OnInit {
           this.todoItemsDone = todoItemsDoneArray;
           this.todoItems = todoItemsArray.reverse();
         })
+    });
+  }
+
+  openViewTodo(element: TodoItem): void {
+    let dialogRef = this.dialog.open(ViewTodoDialogComponent, {
+      width: '50%',
+      data: element
     });
   }
 

@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AddTodoDialogComponent } from './components/todo/dialogs/add-todo-dialog/add-todo-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ViewTodoDialogComponent } from './components/todo/dialogs/view-todo-dialog/view-todo-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     HeaderComponent,
     TodoComponent,
     AddTodoDialogComponent,
+    ViewTodoDialogComponent,
   ],
   imports: [
     BrowserModule,
