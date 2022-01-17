@@ -1,6 +1,19 @@
 # TO-DO
  Full Stack (.NET/Angular)
 
+# Utilisation
+- Git clone https://github.com/Fenoul/TO-DO.git
+
+Back
+- Ouvrir le projet Todo.sln situé dans le dossier API
+- Lancer le projet
+
+Front
+- Ouvrir le terminal au répertoire TO-DO/Todo
+- Npm i
+- Ng serve
+
+
 # Context
 Our fantastic product owner has a wonderful, amazing and revolutionary idea... he wants to build a new Todo application. 
 He has a good idea of the application behavior and comes with a backlog containing the following user stories :
