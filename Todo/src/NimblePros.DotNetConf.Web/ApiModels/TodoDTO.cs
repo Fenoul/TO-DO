@@ -9,6 +9,12 @@ public class TodoDTO : CreateTodoDTO
     Desc = desc;
     Status = status;
   }
+  public TodoDTO(int id, string title, bool status) : base(title, status)
+  {
+    Id = id;
+    Title = title;
+    Status = status;
+  }
   public int Id { get; set; }
   public new string Title { get; set; }
   public new string Desc { get; set; }
@@ -23,6 +29,12 @@ public abstract class CreateTodoDTO
     Desc = desc;
     Status = status;
   }
+  protected CreateTodoDTO(string title,  bool status)
+  {
+    Title = title;
+    Status = status;
+  }
+
   public string Title { get; set; }
   public string Desc { get; set; }
   public bool Status { get; set; }
