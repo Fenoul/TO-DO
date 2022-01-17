@@ -15,17 +15,26 @@ export class TodoService {
     private readonly http: HttpClient,
     private readonly router: Router) { }
 
-    getAll(): Observable<TodoItem[]> {
-      return this.http
-        .get<TodoItem[]>(this.apiUrl + "TodoItem")
-        .pipe(
-          tap(data => console.log(data)),
-          catchError(this.handleError)
-        );
+  getAll(): Observable<TodoItem[]> {
+    return this.http
+      .get<TodoItem[]>(this.apiUrl + "TodoItem")
+      .pipe(
+        tap(data => console.log(data)),
+        catchError(this.handleError)
+      );
   }
   
   private handleError(error: any) {
     console.log(error);
     return throwError(error);
+  }
+
+  patch(todoItem: TodoItem): Observable<TodoItem[]> {
+    return this.http
+      .patch<TodoItem[]>(this.apiUrl + "TodoItem/" + todoItem.id, todoItem)
+      .pipe(
+        tap(data => console.log(data)),
+        catchError(this.handleError)
+      );
   }
 }

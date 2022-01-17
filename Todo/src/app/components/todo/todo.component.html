@@ -6,12 +6,12 @@
           <!-- Title Column -->
           <ng-container matColumnDef="title">
             <mat-header-cell *matHeaderCellDef> A faire </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.title + ' ' + element.id}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="status">
             <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-            <mat-cell *matCellDef="let element"><mat-checkbox></mat-checkbox></mat-cell>
+            <mat-cell *matCellDef="let element"><mat-checkbox (change)="showOptions($event, element)"></mat-checkbox></mat-cell>
           </ng-container>
           
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -21,12 +21,12 @@
             <!-- Title Column -->
             <ng-container matColumnDef="title">
               <mat-header-cell *matHeaderCellDef> Fait </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="line"> {{element.title}} </mat-cell>
+              <mat-cell *matCellDef="let element" class="line"> {{element.title + ' ' + element.id}} </mat-cell>
             </ng-container>
   
             <ng-container matColumnDef="status">
               <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="line"><mat-checkbox [checked]="true"></mat-checkbox></mat-cell>
+              <mat-cell *matCellDef="let element" class="line"><mat-checkbox [checked]="true" (change)="showOptions($event, element)"></mat-checkbox></mat-cell>
             </ng-container>
             
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
